@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Coding Template</title>
+  <link rel="stylesheet" type="text/css" href="bundle.css">
+             
+</head>
+
+<body class="LoginBackground">
+  <div class="center-screen">
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <script>
+        function onSignIn(googleUser) {
+            location.href="http://localhost:3000/Profile.html";
+        }
+      </script>
+  </div>
+ 
+  <div id="content"></div>
+  <meta name="google-signin-client_id" content="985590126799-h4c2bedo2eoreaqp5mgumaq7og83em24.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="bundle.js"></script>
+</body>
+</html>
