@@ -12,7 +12,19 @@
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
     <script>
         function onSignIn(googleUser) {
-            location.href="http://localhost:3000/Profile.html";
+            var profile = googleUser.getBasicProfile();
+            axios.post("https://ponghighscorewebservice.azurewebsites.net/api/bruger", {id : profile.getId(),  brugernavn : profile.getEmail()})
+            
+            .then(function (response) {
+            console.log(response);
+            location.href="http://localhost:3000";
+            })
+            .catch(function (error) {
+            console.log(error);
+            location.href="http://localhost:3000";
+            } );
+            
+            
         }
       </script>
   </div>
@@ -20,6 +32,7 @@
   <div id="content"></div>
   <meta name="google-signin-client_id" content="985590126799-h4c2bedo2eoreaqp5mgumaq7og83em24.apps.googleusercontent.com">
   <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="bundle.js"></script>
 </body>
 </html>

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Coding Template</title>
+  <link rel="stylesheet" type="text/css" href="bundle.css">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="Pong" style="font-size:30px">Ultimate Pong</a>
+        <a class="navbar-brand" href="Statistics" style="font-size:30px">Statistics</a>
+        <a class="navbar-brand" href="http://localhost:3000/" style="font-size:30px">Profile</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <form class="navbar-form navbar-right">
+          <div class="form-group">
+              <h3 id="googleusername" class="navbar-brand"></h3>
+              <h3 id="googleuserid" class="navbar-brand"> </h3>
+          </div>
+          <div class="form-group">
+              <img id="googlePicture" src="">
+          </div>
+          <div class="form-group">
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            
+            <a href="#" onclick="signOut();" style="font-size:30px">Sign out</a>
+            <script>
+              function signOut() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                console.log('User signed out.');
+                location.href="http://localhost:3000/";
+                });
+              }
+            </script>
+          </div>
+        </form>
+      </div><!--/.navbar-collapse -->
+    </div>
+  </nav>
+</head>
+
+<body class="ProfileBackground">
+  <div class="body-text">
+    <p class="ProfileStats">Overall</p>
+    <table class="ProfileTable">
+      <tr>
+        <th class="ProfileStats" id="WDR">Win/Loss Ratio: </th>
+        <th class="ProfileStats" id="TotalWins">Total Wins: </th>
+        <th class="ProfileStats" id="TotalLosses">Total Losses: </th>
+      </tr>
+    </table>
+    <p class="ProfileStats">AI Gamemode</p>
+    <table class="ProfileTable">
+      <tr>
+        <th class="ProfileStats" id="AiWDR">Win/Loss Ratio: </th>
+        <th class="ProfileStats" id="AiWin">Total Wins: </th>
+        <th class="ProfileStats" id="AiLoss">Total Losses: </th>
+      </tr>  
+    </table>
+    <button class="ButtonDelete" onclick="DeleteProfile();">Delete profile</button>
+    <script>
+    function DeleteProfile(){
+      axios.delete("https://ponghighscorewebservice.azurewebsites.net/api/bruger/" + profile.getId())
+      .then(function (response) {
+            console.log(response);
+            location.href="http://localhost:3000/Profile.html";
+            })
+            .catch(function (error) {
+            console.log(error);
+            location.href="http://localhost:3000/Profile.html";
+    }
+    </script>
+    <script>
+      async function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        document.getElementById("googleuserid").innerHTML = "Google ID is: " + profile.getId();
+        console.log(typeof(profile.getId()));
+        document.getElementById("googlePicture").setAttribute("src", profile.getImageUrl());
+        document.getElementById("googleusername").innerHTML = "Username: " + profile.getEmail();
+        var bruger;
+        await axios.get("https://ponghighscorewebservice.azurewebsites.net/api/bruger/" + profile.getId())
+        .then(async function (response){
+          splitstring = await response.data.toString().split(":");
+          
+          bruger = response;
+        });
+        document.getElementById('TotalWins').innerHTML = "Total Wins:" + splitstring[4].split(",")[0];
+        document.getElementById('TotalLosses').innerHTML = "Total Losses:" + splitstring[5].split(",")[0];
+        document.getElementById('WDR').innerHTML = "Win/Loss Ratio: " + (parseInt(splitstring[4].split(",")[0])/parseInt(splitstring[5].split(",")[0])).toFixed(2);
+        document.getElementById('AiWin').innerHTML = "Total Wins:" + splitstring[6].split(",")[0];
+        document.getElementById('AiLoss').innerHTML = "Total Losses:" + splitstring[7].split(",")[0];
+        document.getElementById('AiWDR').innerHTML = "Win/Loss Ratio: " + (parseInt(splitstring[6].split(",")[0])/parseInt(splitstring[7].split(",")[0])).toFixed(2);
+        console.log(bruger);
+      }
+     </script>
+  </div>
+  <div id="content"></div>
+  <meta name="google-signin-client_id" content="985590126799-h4c2bedo2eoreaqp5mgumaq7og83em24.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="bundle.js"></script>
+</body>
+</html>
