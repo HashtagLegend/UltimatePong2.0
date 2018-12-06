@@ -8,15 +8,20 @@ import axios, { AxiosResponse, AxiosError } from "../../node_modules/axios/index
 export class GameEngine
 {
     public ball: Ball;
-    public player1:Player
-    public ai: Ai
+    public player1:Player;
+    public ai: Ai;
     public gameStatus: string = "started";
+    public static gamecon: boolean = true;
 
-    public playerScore : number = 0;
-    public aiScore: number = 0;
+    public static win: string = "Tillykke du har vundet!!!";
+    public static los: string = "Desværre din noob, du har tabt!!!";
 
-    /*public keyPressUp: boolean;*/
-    /*public keyPressDown: boolean;*/
+
+    public static playerScore : number = 0;
+    public static aiScore: number = 0;
+
+    public keyPressUp: boolean;
+    public keyPressDown: boolean;
 
     public cwidth: number;
     public cheight: number;
@@ -37,6 +42,7 @@ export class GameEngine
     private buttenEasy :HTMLButtonElement;
     private buttenMedium :HTMLButtonElement;
     private buttenHard :HTMLButtonElement;
+    private multiButton: HTMLButtonElement;
 
 
     constructor(){
@@ -54,15 +60,18 @@ export class GameEngine
         this.buttenMedium.addEventListener("click", this.MediumPush);
         this.buttenHard = document.getElementById("hard") as HTMLButtonElement;
         this.buttenHard.addEventListener("click", this.HardPush);
+        this.multiButton = document.getElementById("multi") as HTMLButtonElement;
+        this.multiButton.addEventListener("click", this.MultiPlayer);
 
         this.cwidth = this.canvas.width;
         this.cheight = this.canvas.height;
 
-        /*document.addEventListener('keyup', this.KeyUp.bind(this));*/
-       /* document.addEventListener('keydown', this.KeyDown.bind(this));*/
+        document.addEventListener('keyup', this.KeyUp.bind(this));
+        document.addEventListener('keydown', this.KeyDown.bind(this));
 
         this.player1 = new Player(new Vector(25,150),this);
         this.objects.push(this.player1);
+
 
         this.ai = new Ai(new Vector(785,150),this);
         this.objects.push(this.ai);
@@ -89,11 +98,12 @@ export class GameEngine
     }
 
     private UpdateScore():void{
-        this.scoreTag.innerHTML = this.playerScore.toString();
-        this.aiScoreTag.innerHTML = this.aiScore.toString();
+        this.scoreTag.innerHTML = GameEngine.playerScore.toString();
+        this.aiScoreTag.innerHTML = GameEngine.aiScore.toString();
+        
     }
 
-    /*private KeyDown(event: KeyboardEvent):void{
+    private KeyDown(event: KeyboardEvent):void{
         if(event.repeat) {return};
         if(event.key == "a"){
             console.log("a");
@@ -103,10 +113,10 @@ export class GameEngine
             console.log("z");
         }
         
-    }*/
+    }
 
     
-    /*private KeyUp(event: KeyboardEvent):void{
+    private KeyUp(event: KeyboardEvent):void{
         if(event.repeat) {return};
         if(event.key == "a"){
             this.keyPressUp = false;
@@ -114,11 +124,28 @@ export class GameEngine
             this.keyPressDown = false;
         }
         
-    }*/
+    }
 
     public gameLoop(): void{
 
-        console.log(this.direction)
+        if((GameEngine.aiScore >= 3 || GameEngine.playerScore >= 3)&& GameEngine.gamecon == true){
+            this.objects.forEach(element => {
+                if(element == this.ball){
+                    element.position.x=350;
+                    element.position.y=200;
+                }
+            });
+
+            if(GameEngine.aiScore >= 3){
+                window.alert(GameEngine.los)
+            }
+            else{
+                window.alert(GameEngine.win)
+            }
+            GameEngine.aiScore = 0;
+            GameEngine.playerScore = 0;
+            
+        }
 
         this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
         this.getDirections();
@@ -130,15 +157,21 @@ export class GameEngine
                 {
                     if(this.Collision(element,obj)){
                         element.onCollision(obj);
+                     
                     }
                 }
             });
-
+            
+                
+         
             element.moveObject(50);
             element.drawObject(this.ctx)
             this.UpdateScore();
         });
+       
         window.requestAnimationFrame(this.gameLoop.bind(this));
+        
+        
     }
 
     public getDirections(){
@@ -176,16 +209,35 @@ export class GameEngine
     public EasyPush(): void{
         Ai.aiLvl = "easy";
         GameEngine.currentLVL.innerHTML = "Current lvl: Easy";
-
+        GameEngine.playerScore = 0;
+        GameEngine.aiScore = 0;
     }
 
     public MediumPush(): void{
         Ai.aiLvl = "medium";
         GameEngine.currentLVL.innerHTML = "Current lvl: Medium";
+        GameEngine.playerScore = 0;
+        GameEngine.aiScore = 0;
+
+
     }
 
     public HardPush(): void{
         Ai.aiLvl = "hard";
         GameEngine.currentLVL.innerHTML = "Current lvl: Hard";
+        GameEngine.playerScore = 0;
+        GameEngine.aiScore = 0;
+
+
     }
+
+    public MultiPlayer(): void{
+        Ai.aiLvl = "mult";
+        GameEngine.currentLVL.innerHTML = "Current lvl: Multiplayer";
+        GameEngine.playerScore = 0;
+        GameEngine.aiScore = 0;
+
+    }
+
+    
 }    

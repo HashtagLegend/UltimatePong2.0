@@ -34,9 +34,11 @@ export class Ball implements GameObject
         {
         this.direction.x *= -1;
             if(this.position.x < 50){
-                this.gameEngine.aiScore++;
+                GameEngine.aiScore++;
+           
             }else if(this.position.x >650){
-                this.gameEngine.playerScore++;
+                GameEngine.playerScore++;
+                
             }
         }
         if (this.position.y <=0 ||this.position.y >= this.gameEngine.cheight-this.height)

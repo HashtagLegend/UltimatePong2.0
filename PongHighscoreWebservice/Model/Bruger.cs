@@ -7,7 +7,7 @@ namespace PongWebservice.Model
 {
     public class Bruger
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Brugernavn { get; set; }
         public string Description { get; set; }
         public int Wins { get; set; }
@@ -15,7 +15,7 @@ namespace PongWebservice.Model
         public int AI_Wins { get; set; }
         public int AI_Loses { get; set; }
 
-        public Bruger(int id, string brugernavn, string description, int wins, int loses, int aiWins, int aiLoses)
+        public Bruger(string id, string brugernavn, string description, int wins, int loses, int aiWins, int aiLoses)
         {
             Id = id;
             Brugernavn = brugernavn;

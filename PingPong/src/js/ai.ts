@@ -51,6 +51,16 @@ export class Ai implements GameObject
                 this.position.y += time/650 * this.speed; 
             }
         }
+        else if(Ai.aiLvl =="mult"){
+            if(this.gameEngine.keyPressUp)
+            {
+                this.position.y -= time/1000 * this.speed;
+            }
+            if(this.gameEngine.keyPressDown)
+            {
+                this.position.y += time/1000 * this.speed; 
+            }
+        }
 
     }
 

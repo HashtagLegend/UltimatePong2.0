@@ -7,14 +7,14 @@ namespace PongWebservice.Model
 {
     public class ScoreMaker
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Brugernavn { get; set; }
         public string Gamemode { get; set; }
         public string Description { get; set; }
         public int Win { get; set; }
         public int Loss { get; set; }
 
-        public ScoreMaker(int id, string brugernavn, string gamemode, string description, int win, int loss)
+        public ScoreMaker(string id, string brugernavn, string gamemode, string description, int win, int loss)
         {
             Id = id;
             Brugernavn = brugernavn;

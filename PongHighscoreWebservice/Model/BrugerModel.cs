@@ -7,10 +7,10 @@ namespace PongWebservice.Model
 {
     public class BrugerModel
     {
-        public int ID { get; set; }
+        public string ID { get; set; }
         public string Brugernavn { get; set; }
 
-        public BrugerModel(int id, string brugernavn)
+        public BrugerModel(string id, string brugernavn)
         {
             ID = id;
             Brugernavn = brugernavn;
