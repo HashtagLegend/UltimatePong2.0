@@ -14,8 +14,8 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="Pong" style="font-size:30px">Ultimate Pong</a>
-        <a class="navbar-brand" href="Statistics" style="font-size:30px">Statistics</a>
-        <a class="navbar-brand" href="http://localhost:3000/" style="font-size:30px">Profile</a>
+        <a class="navbar-brand" href="Statistics" style="font-size:30px">Leaderboard</a>
+        <a class="navbar-brand" href="http://localhost:3000/Profile.html" style="font-size:30px">Profile</a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <form class="navbar-form navbar-right">
@@ -47,6 +47,7 @@
 </head>
 
 <body class="ProfileBackground">
+  <div id="Info"></div>
   <div class="body-text">
     <p class="ProfileStats">Overall</p>
     <table class="ProfileTable">
@@ -64,32 +65,53 @@
         <th class="ProfileStats" id="AiLoss">Total Losses: </th>
       </tr>  
     </table>
+    <p class="ProfileStats">Achievements</p>
+    <table class="ProfileTable">
+      <tr>
+        <th class="ProfileStats" id="AchWin1">Win 1 time against another player: </th>
+        <th class="ProfileStats" id="AchWin5">Win 5 times against another player: </th>
+        <th class="ProfileStats" id="AchWin10">Win 10 times against another player: </th>        
+        <th class="ProfileStats" id="AchWin20">Win 20 times against another player: </th>
+      </tr>  
+    </table>
+    <table class="ProfileTable">
+      <tr>
+        <th class="ProfileStats" id="AchAIWin1">Win 1 time against the AI: </th>
+        <th class="ProfileStats" id="AchAIWin5">Win 5 times against the AI:  </th>
+        <th class="ProfileStats" id="AchAIWin10">Win 10 times against the AI:  </th>        
+        <th class="ProfileStats" id="AchAIWin20">Win 20 times against the AI: </th>
+      </tr>  
+    </table>
     <button class="ButtonDelete" onclick="DeleteProfile();">Delete profile</button>
     <script>
     function DeleteProfile(){
-      axios.delete("https://ponghighscorewebservice.azurewebsites.net/api/bruger/" + profile.getId())
+      axios.delete("https://ponghighscorewebservice.azurewebsites.net/api/bruger/" + (document.getElementById("googleuserid").innerHTML).split(":")[1])
       .then(function (response) {
             console.log(response);
-            location.href="http://localhost:3000/Profile.html";
-            })
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                console.log('User signed out.');
+                location.href="http://localhost:3000/";
+                })
+          })
             .catch(function (error) {
             console.log(error);
-            location.href="http://localhost:3000/Profile.html";
+            });
     }
     </script>
+    <button class="ButtonEdit" onclick="window.location.href='http://localhost:3000/ProfileEdit.html'">Edit profile</button>
     <script>
       async function onSignIn(googleUser) {
-        var profile = googleUser.getBasicProfile();
+        profile = document.getElementById('Info').innerHTML = googleUser.getBasicProfile();
         document.getElementById("googleuserid").innerHTML = "Google ID is: " + profile.getId();
-        console.log(typeof(profile.getId()));
         document.getElementById("googlePicture").setAttribute("src", profile.getImageUrl());
-        document.getElementById("googleusername").innerHTML = "Username: " + profile.getEmail();
-        var bruger;
+        document.getElementById("googleusername").innerHTML = "Username: " + await axios.get("https://ponghighscorewebservice.azurewebsites.net/api/bruger/" + profile.getId())
+        .then(async function (response){
+          return await response.data.toString().split(":")[2].split(",")[0];
+        });
         await axios.get("https://ponghighscorewebservice.azurewebsites.net/api/bruger/" + profile.getId())
         .then(async function (response){
           splitstring = await response.data.toString().split(":");
-          
-          bruger = response;
         });
         document.getElementById('TotalWins').innerHTML = "Total Wins:" + splitstring[4].split(",")[0];
         document.getElementById('TotalLosses').innerHTML = "Total Losses:" + splitstring[5].split(",")[0];
@@ -97,7 +119,18 @@
         document.getElementById('AiWin').innerHTML = "Total Wins:" + splitstring[6].split(",")[0];
         document.getElementById('AiLoss').innerHTML = "Total Losses:" + splitstring[7].split(",")[0];
         document.getElementById('AiWDR').innerHTML = "Win/Loss Ratio: " + (parseInt(splitstring[6].split(",")[0])/parseInt(splitstring[7].split(",")[0])).toFixed(2);
-        console.log(bruger);
+        await axios.get("https://ponghighscorewebservice.azurewebsites.net/api/achievement/" + profile.getId())
+        .then(async function (response){
+          console.log(achsplitstring = await response.data.toString().split(","));
+        });
+        document.getElementById('AchWin1').innerHTML += achsplitstring[1].split(":")[1];
+        document.getElementById('AchWin5').innerHTML += achsplitstring[2].split(":")[1];        
+        document.getElementById('AchWin10').innerHTML += achsplitstring[3].split(":")[1];
+        document.getElementById('AchWin20').innerHTML += achsplitstring[4].split(":")[1];
+        document.getElementById('AchAIWin1').innerHTML += achsplitstring[5].split(":")[1];
+        document.getElementById('AchAIWin5').innerHTML += achsplitstring[6].split(":")[1];        
+        document.getElementById('AchAIWin10').innerHTML += achsplitstring[7].split(":")[1];
+        document.getElementById('AchAIWin20').innerHTML += achsplitstring[8].split(":")[1];
       }
      </script>
   </div>

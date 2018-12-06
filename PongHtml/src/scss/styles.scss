@@ -7,8 +7,36 @@
   font-family: "Impact";
   font-size: 30px;
   text-align: center;
+  background-color: white;
 }
-
+.ButtonDelete {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+.ButtonEdit {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+.EditProfilePic{
+  width: 500px;
+  height: 500px;
+}
+#left {
+    width: 200px;
+    float: left;
+}
+#right {
+    margin-left: 500px;
+}
+.clear {
+    clear: both;
+}
+.DescriptionEdit{
+  width: 540px; 
+  height: 900px;
+}
 .ProfileTable {
   width: 100%;
 }

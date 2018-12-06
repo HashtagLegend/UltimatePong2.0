@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Coding Template</title>
+  <link rel="stylesheet" type="text/css" href="bundle.css">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="Pong" style="font-size:30px">Ultimate Pong</a>
+        <a class="navbar-brand" href="Statistics" style="font-size:30px">Leaderboard</a>
+        <a class="navbar-brand" href="http://localhost:3000/Profile.html" style="font-size:30px">Profile</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <form class="navbar-form navbar-right">
+          <div class="form-group">
+              <h3 id="googleusername" class="navbar-brand"></h3>
+              <h3 id="googleuserid" class="navbar-brand"> </h3>
+          </div>
+          <div class="form-group">
+              <img id="googlePicture" src="">
+          </div>
+          <div class="form-group">
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            
+            <a href="#" onclick="signOut();" style="font-size:30px">Sign out</a>
+            <script>
+              function signOut() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                console.log('User signed out.');
+                location.href="http://localhost:3000/";
+                });
+              }
+            </script>
+          </div>
+        </form>
+      </div><!--/.navbar-collapse -->
+    </div>
+  </nav>
+</head>
+
+<body class="ProfileBackground">
+  <div id="Info"></div>
+  <div class="body-text">    
+    <div class="row">
+        <div id="left">
+            <img id="ProfilePic" class="EditProfilePic">
+            <p>Brugernavn:</p>
+            <input type="text" id="BrugernavnEdit" size="75">
+            <button id="SaveEditButton" onclick="saveEdit();"> Save Edit</button>
+            <script>
+            function saveEdit(){
+              console.log(document.getElementById('BrugernavnEdit').value)
+              console.log(document.getElementById('DescriptionEdit').value)
+              if(document.getElementById('BrugernavnEdit').value != "")
+              {
+                axios.put("https://ponghighscorewebservice.azurewebsites.net/api/bruger/" + (document.getElementById("googleuserid").innerHTML).split(":")[1], {gamemode: "Brugernavn", brugernavn : document.getElementById('BrugernavnEdit').value})
+                .then(function (response) {
+                console.log(response);
+                })
+                .catch(function (error) {
+                console.log(error);
+                } );
+              }
+              if(document.getElementById('DescriptionEdit').value != "")
+              {
+                axios.put("https://ponghighscorewebservice.azurewebsites.net/api/bruger/" + (document.getElementById("googleuserid").innerHTML).split(":")[1], {gamemode: "Description", description : document.getElementById('DescriptionEdit').value})
+                .then(function (response) {
+                console.log(response);
+                })
+                .catch(function (error) {
+                console.log(error);
+                } );
+              }
+            }
+            </script>
+        </div>
+        <div id="right">
+            <p>Description: </p>
+            <textarea id="DescriptionEdit" class="DescriptionEdit"></textarea>
+        </div>
+    </div>
+  </div>
+    <script>
+      async function onSignIn(googleUser) {
+        profile = document.getElementById('Info').innerHTML = googleUser.getBasicProfile();
+        document.getElementById("googleuserid").innerHTML = "Google ID is: " + profile.getId();
+        document.getElementById("ProfilePic").setAttribute("src", profile.getImageUrl());
+        document.getElementById("BrugernavnEdit").setAttribute("placeholder", await axios.get("https://ponghighscorewebservice.azurewebsites.net/api/bruger/" + profile.getId())
+        .then(async function (response){
+          return await response.data.toString().split(":")[2].split(",")[0];
+        }))
+        document.getElementById("DescriptionEdit").setAttribute("placeholder", await axios.get("https://ponghighscorewebservice.azurewebsites.net/api/bruger/" + profile.getId())
+        .then(async function (response){
+          return await response.data.toString().split(":")[3].split(",")[0];
+        }))
+        var bruger;
+        await axios.get("https://ponghighscorewebservice.azurewebsites.net/api/bruger/" + profile.getId())
+        .then(async function (response){
+          splitstring = await response.data.toString().split(":");
+          
+          bruger = response;
+        });
+      }
+     </script>
+     </div>
+  </div>
+  <div id="content"></div>
+  <meta name="google-signin-client_id" content="985590126799-h4c2bedo2eoreaqp5mgumaq7og83em24.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="bundle.js"></script>
+</body>
+</html>
