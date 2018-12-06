@@ -11,7 +11,7 @@ using PongWebservice.Model;
 
 namespace PongWebservice.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Bruger")]
     [ApiController]
     public class BrugerController : ControllerBase
     {
@@ -35,7 +35,7 @@ namespace PongWebservice.Controllers
                         {
                             while (reader.Read())
                             {
-                                int id = reader.GetInt32(0);
+                                string id = reader.GetString(0);
                                 string brugernavn = reader.GetString(1);
                                 string description = reader.GetString(2);
                                 int wins = reader.GetInt32(3);
@@ -65,8 +65,8 @@ namespace PongWebservice.Controllers
         }
 
         // GET: api/Bruger/5
-        [HttpGet("{id}", Name = "Get")]
-        public string GetBrugerById(int id)
+        [HttpGet("{id}", Name = "GetBrugerById")]
+        public string GetBrugerById(string id)
         {
             string sql = "select * from Bruger " +
                          $"where Bruger_Id = {id}";
@@ -80,7 +80,7 @@ namespace PongWebservice.Controllers
                     {
                         while (reader.Read())
                         {
-                            int ID = reader.GetInt32(0);
+                            string ID = reader.GetString(0);
                             string brugernavn = reader.GetString(1);
                             string description = reader.GetString(2);
                             int wins = reader.GetInt32(3);
@@ -105,6 +105,88 @@ namespace PongWebservice.Controllers
                     }
                 }
             }
+            if (brugerReturn.Wins > 0 && brugerReturn.Wins < 5)
+            {
+                var updateBruger = $"UPDATE Achievement SET FirstWin = 'True' WHERE Bruger_Id={brugerReturn.Id};";
+                SqlConnection connect = new SqlConnection(connection);
+                using (SqlCommand insertCommand = new SqlCommand(updateBruger, connect))
+                {
+                    connect.Open();
+                    insertCommand.ExecuteNonQuery();
+                }
+            }
+            if (brugerReturn.Wins >= 5 && brugerReturn.Wins < 10)
+            {
+                var updateBruger = $"UPDATE Achievement SET FirstWin = 'True', FiveWins = 'True' WHERE Bruger_Id={brugerReturn.Id};";
+                SqlConnection connect = new SqlConnection(connection);
+                using (SqlCommand insertCommand = new SqlCommand(updateBruger, connect))
+                {
+                    connect.Open();
+                    insertCommand.ExecuteNonQuery();
+                }
+            }
+            if (brugerReturn.Wins >= 10 && brugerReturn.Wins < 20)
+            {
+                var updateBruger = $"UPDATE Achievement SET FirstWin = 'True', FiveWins = 'True', TenWins = 'True' WHERE Bruger_Id={brugerReturn.Id};";
+                SqlConnection connect = new SqlConnection(connection);
+                using (SqlCommand insertCommand = new SqlCommand(updateBruger, connect))
+                {
+                    connect.Open();
+                    insertCommand.ExecuteNonQuery();
+                }
+            }
+            if (brugerReturn.Wins >= 20)
+            {
+                var updateBruger = $"UPDATE Achievement SET FirstWin = 'True', FiveWins = 'True', TenWins = 'True', TwentyWins = 'True' WHERE Bruger_Id={brugerReturn.Id};";
+                SqlConnection connect = new SqlConnection(connection);
+                using (SqlCommand insertCommand = new SqlCommand(updateBruger, connect))
+                {
+                    connect.Open();
+                    insertCommand.ExecuteNonQuery();
+                }
+            }
+
+            if (brugerReturn.AI_Wins > 0 && brugerReturn.AI_Wins < 5)
+            {
+                var updateBruger = $"UPDATE Achievement SET AIFirstWin = 'True' WHERE Bruger_Id={brugerReturn.Id};";
+                SqlConnection connect = new SqlConnection(connection);
+                using (SqlCommand insertCommand = new SqlCommand(updateBruger, connect))
+                {
+                    connect.Open();
+                    insertCommand.ExecuteNonQuery();
+                }
+            }
+            if (brugerReturn.AI_Wins >= 5 && brugerReturn.AI_Wins < 10)
+            {
+                var updateBruger = $"UPDATE Achievement SET AIFirstWin = 'True', AIFiveWins = 'True' WHERE Bruger_Id={brugerReturn.Id};";
+                SqlConnection connect = new SqlConnection(connection);
+                using (SqlCommand insertCommand = new SqlCommand(updateBruger, connect))
+                {
+                    connect.Open();
+                    insertCommand.ExecuteNonQuery();
+                }
+            }
+            if (brugerReturn.AI_Wins >= 10 && brugerReturn.AI_Wins < 20)
+            {
+                var updateBruger = $"UPDATE Achievement SET AIFirstWin = 'True', AIFiveWins = 'True', AITenWins = 'True' WHERE Bruger_Id={brugerReturn.Id};";
+                SqlConnection connect = new SqlConnection(connection);
+                using (SqlCommand insertCommand = new SqlCommand(updateBruger, connect))
+                {
+                    connect.Open();
+                    insertCommand.ExecuteNonQuery();
+                }
+            }
+            if (brugerReturn.AI_Wins >= 20)
+            {
+                var updateBruger = $"UPDATE Achievement SET AIFirstWin = 'True', AIFiveWins = 'True', AITenWins = 'True', AITwentyWins = 'True' WHERE Bruger_Id={brugerReturn.Id};";
+                SqlConnection connect = new SqlConnection(connection);
+                using (SqlCommand insertCommand = new SqlCommand(updateBruger, connect))
+                {
+                    connect.Open();
+                    insertCommand.ExecuteNonQuery();
+                }
+            }
+
 
             return brugerReturn.ToString();
         }
@@ -125,11 +207,13 @@ namespace PongWebservice.Controllers
                 insertCommand.ExecuteNonQuery();
             }
 
+            AchievmentController.PostAchievement(brugerModel.ID);
+
         }
 
         // PUT: api/Bruger/5
         [HttpPut("{id}")]
-        public void PutBruger(int id, [FromBody] ScoreMaker scoreMaker)
+        public void PutBruger(string id, [FromBody] ScoreMaker scoreMaker)
         {
             string updateBruger = "ERROR";
             if (scoreMaker.Gamemode == "AI")
@@ -161,7 +245,7 @@ namespace PongWebservice.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(string id)
         {
             string insertBruger = $"DELETE FROM Bruger WHERE Bruger_Id = {id}";
 
