@@ -107,7 +107,7 @@ namespace PongWebservice.Controllers
             }
             if (brugerReturn.Wins > 0 && brugerReturn.Wins < 5)
             {
-                var updateBruger = $"UPDATE Achievement SET FirstWin = 'True' WHERE Bruger_Id={brugerReturn.Id};";
+                var updateBruger = $"UPDATE Achievement SET FirstWin = 'Unlocked' WHERE Bruger_Id={brugerReturn.Id};";
                 SqlConnection connect = new SqlConnection(connection);
                 using (SqlCommand insertCommand = new SqlCommand(updateBruger, connect))
                 {
@@ -117,7 +117,7 @@ namespace PongWebservice.Controllers
             }
             if (brugerReturn.Wins >= 5 && brugerReturn.Wins < 10)
             {
-                var updateBruger = $"UPDATE Achievement SET FirstWin = 'True', FiveWins = 'True' WHERE Bruger_Id={brugerReturn.Id};";
+                var updateBruger = $"UPDATE Achievement SET FirstWin = 'Unlocked', FiveWins = 'Unlocked' WHERE Bruger_Id={brugerReturn.Id};";
                 SqlConnection connect = new SqlConnection(connection);
                 using (SqlCommand insertCommand = new SqlCommand(updateBruger, connect))
                 {
@@ -127,7 +127,7 @@ namespace PongWebservice.Controllers
             }
             if (brugerReturn.Wins >= 10 && brugerReturn.Wins < 20)
             {
-                var updateBruger = $"UPDATE Achievement SET FirstWin = 'True', FiveWins = 'True', TenWins = 'True' WHERE Bruger_Id={brugerReturn.Id};";
+                var updateBruger = $"UPDATE Achievement SET FirstWin = 'Unlocked', FiveWins = 'Unlocked', TenWins = 'Unlocked' WHERE Bruger_Id={brugerReturn.Id};";
                 SqlConnection connect = new SqlConnection(connection);
                 using (SqlCommand insertCommand = new SqlCommand(updateBruger, connect))
                 {
@@ -137,7 +137,7 @@ namespace PongWebservice.Controllers
             }
             if (brugerReturn.Wins >= 20)
             {
-                var updateBruger = $"UPDATE Achievement SET FirstWin = 'True', FiveWins = 'True', TenWins = 'True', TwentyWins = 'True' WHERE Bruger_Id={brugerReturn.Id};";
+                var updateBruger = $"UPDATE Achievement SET FirstWin = 'Unlocked', FiveWins = 'Unlocked', TenWins = 'Unlocked', TwentyWins = 'Unlocked' WHERE Bruger_Id={brugerReturn.Id};";
                 SqlConnection connect = new SqlConnection(connection);
                 using (SqlCommand insertCommand = new SqlCommand(updateBruger, connect))
                 {
@@ -148,7 +148,7 @@ namespace PongWebservice.Controllers
 
             if (brugerReturn.AI_Wins > 0 && brugerReturn.AI_Wins < 5)
             {
-                var updateBruger = $"UPDATE Achievement SET AIFirstWin = 'True' WHERE Bruger_Id={brugerReturn.Id};";
+                var updateBruger = $"UPDATE Achievement SET AIFirstWin = 'Unlocked' WHERE Bruger_Id={brugerReturn.Id};";
                 SqlConnection connect = new SqlConnection(connection);
                 using (SqlCommand insertCommand = new SqlCommand(updateBruger, connect))
                 {
@@ -158,7 +158,7 @@ namespace PongWebservice.Controllers
             }
             if (brugerReturn.AI_Wins >= 5 && brugerReturn.AI_Wins < 10)
             {
-                var updateBruger = $"UPDATE Achievement SET AIFirstWin = 'True', AIFiveWins = 'True' WHERE Bruger_Id={brugerReturn.Id};";
+                var updateBruger = $"UPDATE Achievement SET AIFirstWin = 'Unlocked', AIFiveWins = 'Unlocked' WHERE Bruger_Id={brugerReturn.Id};";
                 SqlConnection connect = new SqlConnection(connection);
                 using (SqlCommand insertCommand = new SqlCommand(updateBruger, connect))
                 {
@@ -168,7 +168,7 @@ namespace PongWebservice.Controllers
             }
             if (brugerReturn.AI_Wins >= 10 && brugerReturn.AI_Wins < 20)
             {
-                var updateBruger = $"UPDATE Achievement SET AIFirstWin = 'True', AIFiveWins = 'True', AITenWins = 'True' WHERE Bruger_Id={brugerReturn.Id};";
+                var updateBruger = $"UPDATE Achievement SET AIFirstWin = 'Unlocked', AIFiveWins = 'Unlocked', AITenWins = 'Unlocked' WHERE Bruger_Id={brugerReturn.Id};";
                 SqlConnection connect = new SqlConnection(connection);
                 using (SqlCommand insertCommand = new SqlCommand(updateBruger, connect))
                 {
@@ -178,7 +178,7 @@ namespace PongWebservice.Controllers
             }
             if (brugerReturn.AI_Wins >= 20)
             {
-                var updateBruger = $"UPDATE Achievement SET AIFirstWin = 'True', AIFiveWins = 'True', AITenWins = 'True', AITwentyWins = 'True' WHERE Bruger_Id={brugerReturn.Id};";
+                var updateBruger = $"UPDATE Achievement SET AIFirstWin = 'Unlocked', AIFiveWins = 'Unlocked', AITenWins = 'Unlocked', AITwentyWins = 'Unlocked' WHERE Bruger_Id={brugerReturn.Id};";
                 SqlConnection connect = new SqlConnection(connection);
                 using (SqlCommand insertCommand = new SqlCommand(updateBruger, connect))
                 {
