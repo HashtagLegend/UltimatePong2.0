@@ -58,7 +58,8 @@
             <script>
             function saveEdit(){
               console.log(document.getElementById('BrugernavnEdit').value)
-              console.log(document.getElementById('DescriptionEdit').value)
+              console.log(document.getElementById('DescriptionEdit').value)              
+              let errors;
               if(document.getElementById('BrugernavnEdit').value != "")
               {
                 axios.put("https://ponghighscorewebservice.azurewebsites.net/api/bruger/" + (document.getElementById("googleuserid").innerHTML).split(":")[1], {gamemode: "Brugernavn", brugernavn : document.getElementById('BrugernavnEdit').value})
@@ -67,6 +68,7 @@
                 })
                 .catch(function (error) {
                 console.log(error);
+                errors = error;
                 } );
               }
               if(document.getElementById('DescriptionEdit').value != "")
@@ -77,7 +79,12 @@
                 })
                 .catch(function (error) {
                 console.log(error);
+                errors = error;
                 } );
+              }
+              if(errors == null)
+              {
+                location.href="http://localhost:3000/Profile.html";
               }
             }
             </script>
