@@ -2,7 +2,36 @@
   font-family: "Impact";
   src: url("./fonts/impact.ttf");
   }
-
+.aiScore{
+    padding-left: 600px;
+    display: inline;
+    font-family: "Impact";
+    font-size: 30px;
+}
+.userScore{
+    display: inline;
+    font-family: "Impact";
+    font-size: 30px;
+}
+canvas{
+  background-color: white;
+}
+.GameBackground{
+  text-align: center;
+  background-color: white;
+  padding-top:150px;
+  padding-bottom:30px;
+  margin-bottom:30px;
+  color:inherit;
+  background-image: url('https://img.itch.zone/aW1nLzEyMzI5MDIucG5n/original/1w52Es.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+}
+.GameText{
+  font-family: "Impact";
+  font-size: 30px;
+}
 .ProfileStats {
   font-family: "Impact";
   font-size: 30px;
