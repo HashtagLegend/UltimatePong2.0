@@ -10,7 +10,7 @@ using PongControlsWebService.Model;
 
 namespace ControlsUdpReciever
 {
-    class Program
+   public class Program
     {
         private const int Port = 7250;
         static string gameUri = "https://ultimatepongcontrols.azurewebsites.net/api/direction";
@@ -77,7 +77,7 @@ namespace ControlsUdpReciever
                 StringContent content = new StringContent(jsonString, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(gameUri, content);
 
-                return response.ToString();
+                return response.StatusCode.ToString();
 
             }
         }
