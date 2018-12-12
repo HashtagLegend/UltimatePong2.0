@@ -22,7 +22,7 @@ Clone the repo to your local machine. Then do the following
     a. Navigate to the UltimatePong2.0/PongHtml folder<br>
     b. Open it in VS Code (code .)<br>
     c. We havent included node modules in our git repo, so run the npm install command from the VS Code terminal<br>
-		(also you will need to run npm install -g npm-run-all in order to run the npm-run-all command)
+		(also you will need to run npm install -g npm-run-all in order to run the npm-run-all command)<br>
     d. Run the comman: npm-run-all --parralel watch<br>
   
   Now everything is up and running!
