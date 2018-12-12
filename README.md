@@ -7,8 +7,8 @@ In order to run the game you will need a Raspberry Pi with a sensehat connected
 ## Installation
 
 Clone the repo to your local machine. Then do the following
-  **1.** Run PongControlsWebService.sln <br>
-    **a.** (This has the reciever for the broadcast controller)<br>
+  1. Run PongControlsWebService.sln <br>
+    a. (This has the reciever for the broadcast controller)<br>
     b. Start the program (it has to be a single startupproject - ControlsUdpReciever)
   2. Clone PongPiControllerBroadcast to the Raspberry pi.<br>
     a. Make sure that you are on the same network as the pi<br>
