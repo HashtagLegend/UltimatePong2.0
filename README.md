@@ -1,10 +1,10 @@
 # UltimatePong2.0
 
-#Dependencies
+##Dependencies
 
 In order to run the game you will need a Raspberry Pi with a sensehat connected
 
-# Installation
+## Installation
 
 Clone the repo to your local machine. Then do the following
   1. Run PongControlsWebService.sln <br>
@@ -26,7 +26,7 @@ Clone the repo to your local machine. Then do the following
   
   Now everything is up and running!
   
-  # Playing the game
+  ## Playing the game
   
   1. Open the browser with the game page
   2. Login with your google account<br>
@@ -36,19 +36,19 @@ Clone the repo to your local machine. Then do the following
     b. Rotate clockwise to move up<br>
     c. Rotate counterclockwise to move down
     
-  # Achievements
+  ## Achievements
   
   It is possible to recieve achievements - try to get as many as possible
   
-  # Multiplayer
+  ## Multiplayer
   
   It is possible to play with friends, just use the keyboard (a and z keys) for player 2
   
-  # Different levels of challenging AI
+  ## Different levels of challenging AI
   
   Play against three levels of AI ranging from tough to nearly impossible
   
-  # Leaderboards
+  ## Leaderboards
   
   Compare your skills against your friends and climb to the top of the leaderboard - greatness awaits!
   
