@@ -18,10 +18,11 @@ Clone the repo to your local machine. Then do the following
     e. (the python script is also included in the project, but to make it easier to clone we've created another repo to clone from)<br>
     f. Once its cloned, navigate to the folder<br>
     g. Run the program with this command: Python3 controller.py  <br>
-  3. Open Powershell
+  3. Open Powershell<br>
     a. Navigate to the UltimatePong2.0/PongHtml folder<br>
     b. Open it in VS Code (code .)<br>
     c. We havent included node modules in our git repo, so run the npm install command from the VS Code terminal<br>
+		(also you will need to run npm install -g npm-run-all in order to run the npm-run-all command)
     d. Run the comman: npm-run-all --parralel watch<br>
   
   Now everything is up and running!
