@@ -10,31 +10,31 @@ Clone the repo to your local machine. Then do the following
   1. Run PongControlsWebService.sln <br>
     a. (This has the reciever for the broadcast controller)<br>
     b. Start the program (it has to be a single startupproject - ControlsUdpReciever)
-  2. Clone PongPiControllerBroadcast to the Raspberry pi.
-    a. Make sure that you are on the same network as the pi
-    b. Connect to the pi with putty or another terminal emulator
-    c. Navigate where you want the file to be located
-    d. Clone this project https://github.com/HashtagLegend/PongPiControllerUdpBroadcast.git
-      - (the python script is also included in the project, but to make it easier to clone we've created another repo to clone from)
-    e. Once its cloned, navigate to the folder
-    f. Run the program with this command 
+  2. Clone PongPiControllerBroadcast to the Raspberry pi.<br>
+    a. Make sure that you are on the same network as the pi<br>
+    b. Connect to the pi with putty or another terminal emulator<br>
+    c. Navigate where you want the file to be located<br>
+    d. Clone this project https://github.com/HashtagLegend/PongPiControllerUdpBroadcast.git<br>
+      - (the python script is also included in the project, but to make it easier to clone we've created another repo to clone from)<br>
+    e. Once its cloned, navigate to the folder<br>
+    f. Run the program with this command <br>
       - Python3 controller.py
   3. Open Powershell
-    a. Navigate to the UltimatePong2.0/PongHtml folder
-    b. Open it in VS Code (code .)
-    c. We havent included node modules in our git repo, so run the npm install command from the VS Code terminal
-    d. Run the comman: npm-run-all --parralel watch
+    a. Navigate to the UltimatePong2.0/PongHtml folder<br>
+    b. Open it in VS Code (code .)<br>
+    c. We havent included node modules in our git repo, so run the npm install command from the VS Code terminal<br>
+    d. Run the comman: npm-run-all --parralel watch<br>
   
   Now everything is up and running!
   
   # Playing the game
   
   1. Open the browser with the game page
-  2. Login with your google account
+  2. Login with your google account<br>
     a. This will automaticly create a game profile
-  3. Navigate to the Ultimate Pong tab
-    a. Use the Raspberry pi to control the pong
-    b. Rotate clockwise to move up
+  3. Navigate to the Ultimate Pong tab<br>
+    a. Use the Raspberry pi to control the pong<br>
+    b. Rotate clockwise to move up<br>
     c. Rotate counterclockwise to move down
     
   # Achievements
