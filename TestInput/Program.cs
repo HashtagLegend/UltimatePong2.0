@@ -9,6 +9,8 @@ namespace TestInput
 {
     class Program
     {
+        //Bruges kun til at simulerer input fra en controller, når der ikke er en Raspberry Pi til rådighed til at broadcaste.
+
         private static string gameUri = "https://ultimatepongcontrols.azurewebsites.net/api/direction";
         //private static string gameUri = "https://localhost:5001/api/direction";
 
