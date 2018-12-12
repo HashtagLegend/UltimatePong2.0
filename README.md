@@ -15,10 +15,9 @@ Clone the repo to your local machine. Then do the following
     b. Connect to the pi with putty or another terminal emulator<br>
     c. Navigate where you want the file to be located<br>
     d. Clone this project https://github.com/HashtagLegend/PongPiControllerUdpBroadcast.git<br>
-      - (the python script is also included in the project, but to make it easier to clone we've created another repo to clone from)<br>
-    e. Once its cloned, navigate to the folder<br>
-    f. Run the program with this command <br>
-      - Python3 controller.py
+    e. (the python script is also included in the project, but to make it easier to clone we've created another repo to clone from)<br>
+    f. Once its cloned, navigate to the folder<br>
+    g. Run the program with this command: Python3 controller.py  <br>
   3. Open Powershell
     a. Navigate to the UltimatePong2.0/PongHtml folder<br>
     b. Open it in VS Code (code .)<br>
